@@ -35,7 +35,7 @@
                                 <div class="form-group all">
                                    <b>Lifetime Plan</b> 
                                     <?php
-                                    $bs = array('1' => '1 Day', '7' => '1 Week', '30' => '1 Month', '365' => '1 Years', '30' => '2 Month', '3' => '3 Month', '6' => '6 Month');
+                                    $bs = array('1 day' => '1 Day', '1 month' => '1 Month', '3 month' => '3 Month', '6 month' => '6 Month', '12 month' => '12 Month');
                                     echo form_dropdown('lifetime', $bs, set_value('lifetime', '1'), 'class="form-control select2" id="lifetime" required="required" style="width:100%;"');
                                     ?>
                                 </div>
