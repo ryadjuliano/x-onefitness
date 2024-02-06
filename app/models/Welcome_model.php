@@ -107,4 +107,22 @@ class Welcome_model extends CI_Model
         $this->db->update('settings', array('version' => '4.0.6'), array('setting_id' => 1));
     }
 
+    public function getCheckin() {
+        $dateToday = date('Y-m-d');
+
+        $this->db->where('DATE(date_checkin) =', $dateToday);
+        $data = $this->db->count_all_results('attendance');
+        return $data;
+
+    }
+
+    public function getMember() {
+      //  $dateToday = date('Y-m-d');
+
+        //$this->db->where('DATE(date_checkin) =', $dateToday);
+        $data = $this->db->count_all_results('customers');
+        return $data;
+
+    }
+
 }

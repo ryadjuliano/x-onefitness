@@ -499,8 +499,8 @@ class Settings extends MY_Controller
                 $config['upload_path'] = 'uploads/';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size'] = '500';
-                $config['max_width'] = '300';
-                $config['max_height'] = '100';
+                $config['max_width'] = '500';
+                $config['max_height'] = '500';
                 $config['overwrite'] = FALSE;
                 $config['encrypt_name'] = TRUE;
                 $this->upload->initialize($config);

@@ -15,6 +15,9 @@ class Welcome extends MY_Controller
         }
         $this->load->model('welcome_model');
         $this->load->model('customers_model');
+        $this->load->model('reports_model');
+
+        
         if ($register = $this->site->registerData($this->session->userdata('user_id'))) {
             $register_data = array('register_id' => $register->id, 'cash_in_hand' => $register->cash_in_hand, 'register_open_time' => $register->date, 'store_id' => $register->store_id);
             $this->session->set_userdata($register_data);
@@ -22,9 +25,24 @@ class Welcome extends MY_Controller
     }
 
     function index() {
+        $year = date('Y');
+        $month = date('m');
+        
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['topProducts'] = $this->welcome_model->topProducts();
         $this->data['chartData'] = $this->welcome_model->getChartData();
+        $this->data['checkinData'] = $this->welcome_model->getCheckin();
+        $this->data['members'] = $this->welcome_model->getMember();
+        $sales = $this->reports_model->getDailySales($year, $month);
+        foreach($sales as $row) {
+            $this->data['income'] = $row->paid;
+        }
+
+        // 
+        // $check  = $this->welcome_model->getCheckin();
+        
+        // print_r($ddd);
+        // exit();
         $this->data['page_title'] = lang('dashboard');
         $bc = array(array('link' => '#', 'page' => lang('dashboard')));
         $meta = array('page_title' => lang('dashboard'), 'bc' => $bc);
