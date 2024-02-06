@@ -34,9 +34,16 @@ class Welcome extends MY_Controller
         $this->data['checkinData'] = $this->welcome_model->getCheckin();
         $this->data['members'] = $this->welcome_model->getMember();
         $sales = $this->reports_model->getDailySales($year, $month);
-        foreach($sales as $row) {
-            $this->data['income'] = $row->paid;
-        }
+
+        $start = $year.'-'.$month.'-01 00:00:00';
+        $end = $year.'-'.$month.'-'.days_in_month($month, $year).' 23:59:59';
+        // $this->data['total_purchases'] = $this->reports_model->getTotalPurchases($start, $end);
+        $this->data['total_sales']= $this->reports_model->getTotalSales($start, $end);
+        // $this->data['total_expenses'] = $this->reports_model->getTotalExpenses($start, $end);
+
+        // foreach($sales as $row) {
+        //     $this->data['income'] = $row->paid;
+        // }
 
         // 
         // $check  = $this->welcome_model->getCheckin();
