@@ -307,7 +307,7 @@ if ($chartData) {
                         <span class="info-box-icon bg-green"><i class="fa fa-bar-chart-o"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Income</span>
-                            <span class="info-box-number"><?php  echo "Rp " . number_format($income,0, ",", "."); ?></span>
+                            <span class="info-box-number"><?= $this->tec->formatMoney($total_sales->total_amount) ?></span>
                         </div>
 
                     </div>
