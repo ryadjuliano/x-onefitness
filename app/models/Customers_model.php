@@ -27,6 +27,7 @@ class Customers_model extends CI_Model
 
         $this->db->select('*');
         $this->db->from('customers');
+        $this->db->where('customers.status', 1); // Adding the condition here
         $this->db->like('customers.member_code', $searchTerm);
         $this->db->or_like('customers.name', $searchTerm);
 

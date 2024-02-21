@@ -39,7 +39,7 @@
             "data": "status",
             "render": function(data, type, full, meta) {
                 
-                if (full.status == 0 ) {
+                if (full.status == 1 ) {
                     return '<div class="text-center"><span class="label label-success">Active</span></div>';
                 } else {
                     return '<div class="text-center"><span class="label label-danger">Non Active</span></div>';

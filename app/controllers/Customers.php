@@ -34,6 +34,16 @@ class Customers extends MY_Controller
 
     function get_attendance() {
 
+        // Assuming you have two time strings
+// $time1 = '06:28:08';
+// $time2 = '11:12:54';
+
+// // Convert time strings to DateTime objects
+// $datetime1 = DateTime::createFromFormat('H:i:s', $time1);
+// $datetime2 = DateTime::createFromFormat('H:i:s', $time2);
+
+// // Calculate the difference
+// $interval = $datetime1->diff($datetime2);
         $this->load->library('datatables');
         $this->datatables
         ->select("attendance.*,attendance.id_a, customers.name as customer_name")
@@ -274,7 +284,7 @@ class Customers extends MY_Controller
        
         $data = array(
             // 'check_out' =>date("h:i:s"),
-            'status' => 1,
+            'status' => 0,
         );
         //  $res =  $this->customers_model->updateustomerChecout($code, $data);
 
@@ -300,7 +310,7 @@ class Customers extends MY_Controller
         // }
        
         $data = array(
-            'status' => 0,
+            'status' => 1,
         );
         //  $res =  $this->customers_model->updateustomerChecout($code, $data);
 

@@ -38,6 +38,8 @@ if ($chartData) {
                         $("#hasil").html("");
                         const startDate =  data[0].end_date;
                         const date_checkin = data[0].date_checkin;
+                        const StatusMember = data[0].status;
+                        
                         // id_a
                         // const id_att = 
                         $('#id_att').val(data[0].id_a);
@@ -51,7 +53,7 @@ if ($chartData) {
                         // Format the date as "yyyy-mm-dd"
                         var today = year + '-' + month + '-' + day;
                        
-                        if(startDate == null || startDate < today) {
+                        if(startDate == null || startDate < today || StatusMember == 0) {
                             // console.log('--> no checkin')
                             $('#checkIn').prop('disabled', true);
                             $('#checkOut').prop('disabled', true);

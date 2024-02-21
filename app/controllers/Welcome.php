@@ -64,7 +64,7 @@ class Welcome extends MY_Controller
 
         // Create JSON response
         $jsonData = json_encode($result);
-
+        // echo  json_encode($result);
         // Set the content type to JSON
         $this->output->set_content_type('application/json');
         $this->output->set_output($jsonData);
@@ -81,7 +81,7 @@ class Welcome extends MY_Controller
                 'date_checkin' => date('Y-m-d'),
                 'check_in' =>date("h:i:s"),
                 'created_by' => $identity['username'],
-                'status' => 1,
+                'status_att' => 1,
                 'created_at' => date('Y-m-d h:i:s')
             );
         $res =  $this->customers_model->addCustomerCheckin($data);
@@ -99,7 +99,7 @@ class Welcome extends MY_Controller
        $code = $this->input->get('id_att'); 
         $data = array(
                 'check_out' =>date("h:i:s"),
-                'status' => 0,
+                'status_att' => 0,
             );
         $res =  $this->customers_model->updateustomerChecout($code, $data);
         if($res) {
