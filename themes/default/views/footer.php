@@ -21,9 +21,12 @@
         $('.mm_<?=$m?>').addClass('active');
         $('#<?=$m?>_<?=$v?>').addClass('active');
         //Date picker
-            $('#datepicker').datepicker({
+        $('#datepicker').datepicker({
             autoclose: true
-            })
+         })
+         $('#datepicker2').datepicker({
+            autoclose: true
+         })
 
     });
     var lang = new Array();
@@ -39,6 +42,5 @@
 <script src="<?= $assets ?>dist/js/scripts.min.js" type="text/javascript"></script>
 <script src="<?= $assets ?>dist/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <!-- ootstrap-datepicker.min.js" -->
-<?= (DEMO) ? '<script src="'.$assets.'dist/js/spos_ad.min.js"></script>' : ''; ?>
 </body>
 </html>

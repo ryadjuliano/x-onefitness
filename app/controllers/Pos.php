@@ -723,7 +723,7 @@ class Pos extends MY_Controller {
         $date = date("Y-m-d");
         $mod_date = strtotime($date . '+ '.$lifetime);
 
-        $start_date =date("Y-m-d");
+        $start_date = $this->data['customer']->start_date;
         $end_date = date("Y-m-d",$mod_date);
 
         $dataStatus = array(

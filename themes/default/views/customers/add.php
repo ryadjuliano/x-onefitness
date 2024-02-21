@@ -60,6 +60,16 @@
 									<input type="text" class="form-control pull-right" name="dob" id="datepicker">
 								</div>
 						</div>
+						<div class="form-group">
+							<label class="control-label" for="email_address">Start Date</label>
+							<!-- <input type="text" class="form-control pull-right" id="datepicker"> -->
+							<div class="input-group date">
+								<div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" class="form-control pull-right" name="start_date" id="datepicker2" required>
+								</div>
+						</div>
 
 					
 					</div>

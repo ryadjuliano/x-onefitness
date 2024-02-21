@@ -46,6 +46,58 @@
                 }
             }
             },
+            {
+            "data": "start_date",
+            "render": function(data, type, full, meta) {
+                // var convertedDate = moment(full.start_date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                var originalDate = full.start_date
+           
+                if (originalDate) {
+                    // Split the date string by '-'
+                    var parts = originalDate.split('-');
+                    
+                    // Check if the split operation succeeded
+                    if (parts.length === 3) {
+                        // Rearrange the parts to form the desired format
+                        var convertedDate = parts[2] + '/' + parts[1] + '/' + parts[0];
+                        return '<div class="text-center"><span class="label label-success">'+convertedDate  +'</span></div>';
+                        // Display the converted date
+                        console.log('Converted date:', convertedDate);
+                    } else {
+                        console.error('Invalid date format');
+                    }
+                } else {
+                    return '<div class="text-center"><span class="label label-success">-</span></div>';
+                }
+               
+            }
+            },
+            {
+            "data": "start_date",
+            "render": function(data, type, full, meta) {
+                // var convertedDate = moment(full.start_date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                var originalDate = full.end_date
+           
+                if (originalDate) {
+                    // Split the date string by '-'
+                    var parts = originalDate.split('-');
+                    
+                    // Check if the split operation succeeded
+                    if (parts.length === 3) {
+                        // Rearrange the parts to form the desired format
+                        var convertedDate = parts[2] + '/' + parts[1] + '/' + parts[0];
+                        return '<div class="text-center"><span class="label label-danger">'+convertedDate  +'</span></div>';
+                        // Display the converted date
+                        console.log('Converted date:', convertedDate);
+                    } else {
+                        console.error('Invalid date format');
+                    }
+                } else {
+                    return '<div class="text-center"><span class="label label-danger">-</span></div>';
+                }
+               
+            }
+            },
             { "data": "Actions", "searchable": false, "orderable": false }
             ]
 
@@ -80,6 +132,8 @@
                                     <th>Members Code</th>
                                     <th>Has Photo</th>
                                     <th>Active / Non Active</th>
+                                    <th>Start Date</th>
+                                    <th>Expired Date</th>
                                     <th style="width:65px;"><?= lang("actions"); ?></th>
                                 </tr>
                             </thead>
