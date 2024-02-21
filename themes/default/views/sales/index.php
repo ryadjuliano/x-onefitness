@@ -35,6 +35,7 @@
             { "data": "id", "visible": false },
             { "data": "date", "render": hrld },
             { "data": "customer_name" },
+            { "data": "product_name" },
             { "data": "total", "render": currencyFormat },
             { "data": "total_tax", "render": currencyFormat },
             { "data": "total_discount", "render": currencyFormat },
@@ -54,6 +55,7 @@
                 $(api.column(5).footer()).html( cf(api.column(5).data().reduce( function (a, b) { return pf(a) + pf(b); }, 0)) );
                 $(api.column(6).footer()).html( cf(api.column(6).data().reduce( function (a, b) { return pf(a) + pf(b); }, 0)) );
                 $(api.column(7).footer()).html( cf(api.column(7).data().reduce( function (a, b) { return pf(a) + pf(b); }, 0)) );
+                $(api.column(8).footer()).html( cf(api.column(8).data().reduce( function (a, b) { return pf(a) + pf(b); }, 0)) );
             }
 
         });
@@ -99,6 +101,7 @@
                                     <th style="max-width:30px;"><?= lang("id"); ?></th>
                                     <th class="col-xs-2"><?= lang("date"); ?></th>
                                     <th><?= lang("customer"); ?></th>
+                                    <th>Product Name</th>
                                     <th class="col-xs-1"><?= lang("total"); ?></th>
                                     <th class="col-xs-1"><?= lang("tax"); ?></th>
                                     <th class="col-xs-1"><?= lang("discount"); ?></th>

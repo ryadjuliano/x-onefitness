@@ -80,6 +80,13 @@ class Customers_model extends CI_Model
         return false;
     }
 
+    public function BannedCust($id, $data = array()) {
+        if($this->db->update('customers', $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+    // checkOutMember
     public function deleteCustomer($id) {
         if($this->db->delete('customers', array('id' => $id))) {
             return true;

@@ -32,7 +32,11 @@ if ($chartData) {
                     data: { search: searchTerm },
                     dataType: 'json',
                     success: function(data) {
-                        // console.log('-->', data[0])
+                        // console.log('-->', data[0].start_date)
+                        $('#checkIn').prop('disabled', false);
+                        $('#checkOut').prop('disabled', false);
+                        $("#hasil").html("");
+                        const startDate =  data[0].end_date;
                         const date_checkin = data[0].date_checkin;
                         // id_a
                         // const id_att = 
@@ -46,7 +50,18 @@ if ($chartData) {
 
                         // Format the date as "yyyy-mm-dd"
                         var today = year + '-' + month + '-' + day;
-                       // console.log('form', formattedDate)
+                       
+                        if(startDate == null || startDate < today) {
+                            // console.log('--> no checkin')
+                            $('#checkIn').prop('disabled', true);
+                            $('#checkOut').prop('disabled', true);
+                            // $("#package").append("<span class='label label-important'>"+'NO AKTIF'+'</span>');
+                            $("#hasil").html("<div class=\"alert alert-danger alert-dismissible\">" +
+                            "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>" +
+                            "<h4><i class=\"icon fa fa-\"></i> Member Belum Aktif !!</h4>" +
+                            "</div>");
+
+                        }
                         if(date_checkin == today) {
                             // checkIn
                             if (data[0].status == 1) {
@@ -351,6 +366,9 @@ if ($chartData) {
 
                     <!-- Page details -->
                     <div id="shadow" class="box-body">
+                    <div id="hasil">
+                           
+                           </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">Member Id</label>
                             <div class="col-sm-10">
@@ -361,6 +379,7 @@ if ($chartData) {
                             </div>
                             
                         </div>
+                       
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">Active Package</label>
                             <div class="col-sm-10">

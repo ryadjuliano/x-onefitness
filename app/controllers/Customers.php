@@ -36,11 +36,11 @@ class Customers extends MY_Controller
 
         $this->load->library('datatables');
         $this->datatables
-        ->select("attendance.*, customers.name as customer_name")
+        ->select("attendance.*,attendance.id_a, customers.name as customer_name")
         ->from("attendance")
         ->join("customers", "attendance.member_id = customers.member_code", "left")
-        ->add_column("Actions", "<div class='text-center'><div class='btn-group'><a href='" . site_url('customers/edit/$1') . "' class='tip btn btn-warning btn-xs' title='".$this->lang->line("edit_customer")."'><i class='fa fa-edit'></i></a> <a href='" . site_url('customers/delete/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-trash-o'></i></a></div></div>", "id")
-        ->unset_column('id');
+        ->add_column("Actions", "<div class='text-center'><div class='btn-group'><a href='" . site_url('customers/checkout/$1') . "' class='tip btn btn-success btn-xs' title=''><i class='fa fa-calendar'></i></a> <a href='" . site_url('customers/delete/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-trash-o'></i></a></div></div>", "id_a")
+        ->unset_column('id_a');
         // src="' . base_url() . 'uploads/avatars/' . $user->gender . '.png"
         // print_r( $this->datatables->generate());
         // exit();
@@ -52,10 +52,16 @@ class Customers extends MY_Controller
 
         $this->load->library('datatables');
         $this->datatables
-        ->select("id, name, phone, email, member_code,image")
+        ->select("id, name,status, phone, email, member_code,image")
         ->from("customers")
-        ->add_column("Photo", "<div class='text-center'><div class='btn-group'><a href='"  . base_url() . 'uploads/members/$1' . "' class='tip btn btn-success btn-xs' target='_blank'><i class='fa fa-check'></i></a> </div></div>", "image")
-        ->add_column("Actions", "<div class='text-center'><div class='btn-group'><a href='" . site_url('customers/edit/$1') . "' class='tip btn btn-warning btn-xs' title='".$this->lang->line("edit_customer")."'><i class='fa fa-edit'></i></a> <a href='" . site_url('customers/delete/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-trash-o'></i></a></div></div>", "id")
+        // ->add_column("Photo", "<div class='text-center'><div class='btn-group'><a href='"  . base_url() . 'uploads/members/$1' . "' class='tip btn btn-success btn-xs' target='_blank'><i class='fa fa-check'></i></a> </div></div>", "image")
+        // exclamation
+        // ->add_column("Active", "<div class='text-center'><div class='btn-group'> <a href='" . site_url('customers/banned/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-exclamation'></i></a></div></div>", "id")
+        ->add_column("Actions", "<div class='text-center'><div class='btn-group'> 
+        <a href='" . site_url('customers/delete/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-trash-o'></i></a>
+        <a href='" . site_url('customers/banned/$1') . "' onClick=\"return confirm('Apakah Kamu Yakin ingin Meng Nonaktifkan  ?')\" class='tip btn btn-warning btn-xs' title='Banned Member'><i class='fa fa-ban'></i></a>
+        <a href='" . site_url('customers/active/$1') . "' onClick=\"return confirm('Apakah Kamu Yakin ingin Mengaktifkan Kembali ?')\" class='tip btn btn-success btn-xs' title='Active Member'><i class='fa fa-check'></i></a>                
+        </div></div>", "id")
         ->unset_column('id');
         // src="' . base_url() . 'uploads/avatars/' . $user->gender . '.png"
         echo $this->datatables->generate();
@@ -225,5 +231,86 @@ class Customers extends MY_Controller
 
     }
 
+    function checkout($id = NULL) {
+        if(DEMO) {
+            $this->session->set_flashdata('error', $this->lang->line("disabled_in_demo"));
+            redirect('pos');
+        }
+
+        if($this->input->get('id')) { $id = $this->input->get('id', TRUE); }
+
+        // if (!$this->Admin)
+        // {
+        //     $this->session->set_flashdata('error', lang("access_denied"));
+        //     redirect('pos');
+        // }
+       
+        $data = array(
+            'check_out' =>date("h:i:s"),
+            'status' => 0,
+        );
+        //  $res =  $this->customers_model->updateustomerChecout($code, $data);
+
+        if ( $this->customers_model->updateustomerChecout($id, $data) )
+        {
+            // $this->session->set_flashdata('message', lang("customer_deleted"));
+            redirect("customers/attendance");
+        }   
+    }
+
+    function banned($id = NULL) {
+        if(DEMO) {
+            $this->session->set_flashdata('error', $this->lang->line("disabled_in_demo"));
+            redirect('pos');
+        }
+
+        if($this->input->get('id')) { $id = $this->input->get('id', TRUE); }
+
+        // if (!$this->Admin)
+        // {
+        //     $this->session->set_flashdata('error', lang("access_denied"));
+        //     redirect('pos');
+        // }
+       
+        $data = array(
+            // 'check_out' =>date("h:i:s"),
+            'status' => 1,
+        );
+        //  $res =  $this->customers_model->updateustomerChecout($code, $data);
+
+        if ( $this->customers_model->BannedCust($id, $data) )
+        {
+            $this->session->set_flashdata('message', 'Customers Non Active');
+            redirect("customers");
+        }   
+    }
+
+    function active($id = NULL) {
+        if(DEMO) {
+            $this->session->set_flashdata('error', $this->lang->line("disabled_in_demo"));
+            redirect('pos');
+        }
+
+        if($this->input->get('id')) { $id = $this->input->get('id', TRUE); }
+
+        // if (!$this->Admin)
+        // {
+        //     $this->session->set_flashdata('error', lang("access_denied"));
+        //     redirect('pos');
+        // }
+       
+        $data = array(
+            'status' => 0,
+        );
+        //  $res =  $this->customers_model->updateustomerChecout($code, $data);
+
+        if ( $this->customers_model->BannedCust($id, $data) )
+        {
+            $this->session->set_flashdata('message', 'Customers Active');
+            redirect("customers");
+        }   
+    }
+
+    // 
 
 }

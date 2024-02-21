@@ -23,6 +23,29 @@
             { "data": "date_checkin" },
             { "data": "check_in" },
             { "data": "check_out" },
+            {
+            "data": "duration",
+            "render": function(data, type, full, meta) {
+                // console.log('-->', full)
+                var date1 = new Date('1970-01-01T' + full.check_in + 'Z');
+                var date2 = new Date('1970-01-01T' + full.check_out + 'Z');
+
+                // Calculate the difference in milliseconds
+                var durationMs = date2 - date1;
+
+                // Convert milliseconds to hours
+                var hours = Math.floor(durationMs / (1000 * 60 * 60));
+
+                if (durationMs >= 0) {
+                    // Convert milliseconds to hours
+                    var hours = Math.floor(durationMs / (1000 * 60 * 60));
+                    return '<div class="text-center"><span class="label label-info">'+ hours + ' hours </span></div>';
+                } else {
+                    // console.log('Duration is negative');
+                    return '<div class="text-center"><span class="label label-warning   ">-</span></div>';
+                }
+            }
+            },
             { "data": "Actions", "searchable": false, "orderable": false }
             ]
 
@@ -56,6 +79,7 @@
                                     <th>Date</th>
                                     <th>Check In</th>
                                     <th>Check Out</th>
+                                    <th>Duration</th>
                                     <th style="width:65px;"><?= lang("actions"); ?></th>
                                 </tr>
                             </thead>

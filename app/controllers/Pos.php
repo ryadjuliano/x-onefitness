@@ -718,18 +718,19 @@ class Pos extends MY_Controller {
         // 
         $this->data['pro'] = $this->products_model->getProductById($this->data['rows'][0]->product_id);
         $lifetime =   $this->data['pro']->lifetime;
+       
         $id =   $this->data['customer']->id;
         $date = date("Y-m-d");
         $mod_date = strtotime($date . '+ '.$lifetime);
 
         $start_date =date("Y-m-d");
         $end_date = date("Y-m-d",$mod_date);
+
         $dataStatus = array(
             'status' => 1,
             'start_date' => $start_date,
             'end_date' => $end_date
             );
-
         $this->customers_model->updateCustomer($id, $dataStatus);
         // echo "<pre />";
         // print_r($id);

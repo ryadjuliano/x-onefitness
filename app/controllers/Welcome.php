@@ -34,7 +34,7 @@ class Welcome extends MY_Controller
         $this->data['checkinData'] = $this->welcome_model->getCheckin();
         $this->data['members'] = $this->welcome_model->getMember();
         $sales = $this->reports_model->getDailySales($year, $month);
-
+        
         $start = $year.'-'.$month.'-01 00:00:00';
         $end = $year.'-'.$month.'-'.days_in_month($month, $year).' 23:59:59';
         // $this->data['total_purchases'] = $this->reports_model->getTotalPurchases($start, $end);

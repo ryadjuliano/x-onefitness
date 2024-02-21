@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
+        var baseUrl = '<?= site_url('') ?>';
         var table = $('#CuData').DataTable({
 
             'ajax' : { url: '<?=site_url('customers/get_customers');?>', type: 'POST', "data": function ( d ) {
@@ -22,7 +22,30 @@
             { "data": "phone" },
             { "data": "email" },
             { "data": "member_code" },
-            { "data": "Photo" },
+            // { "data": "Photo" },
+            {
+            "data": "Photo",
+            "render": function(data, type, full, meta) {
+                if (full.image !== null && full.image !== undefined && full.image !== '') {
+                    return '<div class="text-center"><div class="btn-group"><a href="' + baseUrl + 'uploads/members/' + full.image + '" class="tip btn btn-success btn-xs" target="_blank"><i class="fa fa-check"></i></a></div></div>';
+                } else {
+                    return '<div class="text-center"><div class="btn-group"><a href="" class="tip btn btn-danger btn-xs" target="_blank"><i class="fa close"></i></a></div></div>';
+                }
+            }
+            },
+            // Active
+            // { "data": "Active" },
+            {
+            "data": "status",
+            "render": function(data, type, full, meta) {
+                
+                if (full.status == 0 ) {
+                    return '<div class="text-center"><span class="label label-success">Active</span></div>';
+                } else {
+                    return '<div class="text-center"><span class="label label-danger">Non Active</span></div>';
+                }
+            }
+            },
             { "data": "Actions", "searchable": false, "orderable": false }
             ]
 
@@ -56,6 +79,7 @@
                                     <th><?= lang("email_address"); ?></th>
                                     <th>Members Code</th>
                                     <th>Has Photo</th>
+                                    <th>Active / Non Active</th>
                                     <th style="width:65px;"><?= lang("actions"); ?></th>
                                 </tr>
                             </thead>
