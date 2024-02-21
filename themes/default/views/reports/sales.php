@@ -131,7 +131,7 @@ if ($this->input->post('end_date')) {
                                         foreach($customers as $customer){
                                             $cu[$customer->id] = $customer->name;
                                         }
-                                        echo form_dropdown('customer', $cu, set_value('customer'), 'class="form-control select2" id="customer"'); ?>
+                                        echo form_dropdown('customer', $cu, set_value('customer'), 'class="form-control select2" style="width:100%" id="customer"'); ?>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
