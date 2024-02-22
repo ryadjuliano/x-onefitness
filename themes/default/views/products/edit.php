@@ -22,7 +22,7 @@
                                     <?= form_input('name', $product->name, 'class="form-control tip" id="name"  required="required"'); ?>
                                 </div>
                                 <div class="form-group">
-                                    <?= lang('code', 'code'); ?> <?= lang('can_use_barcode'); ?>
+                                <?= lang('code', 'code'); ?> <?= lang('can_use_barcode'); ?>
                                     <?= form_input('code', $product->code, 'class="form-control tip" id="code"  required="required"'); ?>
                                 </div>
                                 <div class="form-group all">
@@ -31,6 +31,16 @@
                                     $bs = array('code25' => 'Code25', 'code39' => 'Code39', 'code128' => 'Code128', 'ean8' => 'EAN8', 'ean13' => 'EAN13', 'upca' => 'UPC-A', 'upce' => 'UPC-E');
                                     echo form_dropdown('barcode_symbology', $bs, set_value('barcode_symbology', $product->barcode_symbology), 'class="form-control select2" id="barcode_symbology" required="required" style="width:100%;"');
                                     ?>
+                                </div>
+
+                                <div id="lf">
+                                <div class="form-group all">
+                                   <b>Lifetime Plan</b> 
+                                    <?php
+                                    $bs = array('admin' => 'Choose','1 day' => '1 Day', '1 month' => '1 Month', '3 month' => '3 Month', '6 month' => '6 Month', '12 month' => '12 Month');
+                                    echo form_dropdown('lifetime', $bs, set_value('lifetime',$product->lifetime ), 'class="form-control select2" id="lifetime" required="required" style="width:100%;"');
+                                    ?>
+                                </div>
                                 </div>
 
                                 <div class="form-group">
@@ -159,10 +169,12 @@
             } else if (type == 'service') {
                 $('.st').slideUp();
                 $('#ct').slideUp();
+                $('#lf').slideDown();
                 //$('#cost').attr('readonly', false);
             } else {
                 $('#ct').slideUp();
                 $('.st').slideDown();
+                $('#lf').slideUp();
                 //$('#cost').attr('readonly', false);
             }
         });

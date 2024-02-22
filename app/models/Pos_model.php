@@ -9,15 +9,24 @@ class Pos_model extends CI_Model
 
     public function getProductNames($term, $limit = 10) {
         $store_id = $this->session->userdata('store_id');
-        $this->db->select("{$this->db->dbprefix('products')}.*, COALESCE(psq.quantity, 0) as quantity, COALESCE(psq.price, 0) as store_price")
-        ->join("( SELECT * from {$this->db->dbprefix('product_store_qty')} WHERE store_id = {$store_id}) psq", 'products.id=psq.product_id', 'left');
+        
+        // $this->db->select("{$this->db->dbprefix('products')}.*, COALESCE(psq.quantity, 0) as quantity, COALESCE(psq.price, 0) as store_price")
+        // ->join("( SELECT * from {$this->db->dbprefix('product_store_qty')} WHERE store_id = {$store_id}) psq", 'products.id=psq.product_id', 'left');
+
+        $this->db->select("{$this->db->dbprefix('products')}.*, COALESCE(SUM(psq.quantity), 0) as total_quantity, COALESCE(SUM(psq.price), 0) as total_price")
+    ->join("( SELECT * from {$this->db->dbprefix('product_store_qty')} WHERE store_id = {$store_id}) psq", 'products.id=psq.product_id', 'left');
+
         if ($this->db->dbdriver == 'sqlite3') {
             $this->db->where("(name LIKE '%{$term}%' OR code LIKE '%{$term}%' OR  (name || ' (' || code || ')') LIKE '%{$term}%')");
         } else {
             $this->db->where("(name LIKE '%{$term}%' OR code LIKE '%{$term}%' OR  concat(name, ' (', code, ')') LIKE '%{$term}%')");
         }
+
+        $this->db->where("(name LIKE '%{$term}%' OR code LIKE '%{$term}%' OR  concat(name, ' (', code, ')') LIKE '%{$term}%')");
         $this->db->group_by('products.id')->limit($limit);
         $q = $this->db->get('products');
+        // return $q->result();
+
         if ($q->num_rows() > 0) {
             foreach (($q->result()) as $row) {
                 $data[] = $row;
@@ -25,6 +34,38 @@ class Pos_model extends CI_Model
             return $data;
         }
         return FALSE;
+
+        // $this->db->select('*');
+        // $this->db->from('customers');
+        // $this->db->where('customers.status', 1); // Adding the condition here
+        // $this->db->like('customers.member_code', $searchTerm);
+        // $this->db->or_like('customers.name', $searchTerm);
+
+        // // Joining with 'orders'
+        // $this->db->join('attendance', 'attendance.member_id = customers.member_code', 'left');
+
+        // // Joining with 'order_details'
+        // $this->db->join('order_details', 'order_details.order_id = orders.order_id', 'left');
+
+        // // Joining with 'products'
+        // $this->db->join('products', 'products.product_id = order_details.product_id', 'left');
+
+    //     $query = $this->db->get('products');
+
+    //    if ($query === false) {
+    //         // Handle database query error
+    //         $error = $this->db->error();
+    //         // Log or display the error message
+    //         echo "Database Error: " . $error['message'];
+    //     } else {
+    //         // Check if the query returned a result set
+    //         if ($query->num_rows() > 0) {
+    //             // Process the result set
+    //         } else {
+    //             // Handle case where no rows were returned
+    //         }
+    //     }
+
     }
 
     public function getTodaySales() {

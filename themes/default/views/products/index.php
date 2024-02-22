@@ -48,7 +48,7 @@
             { "data": "type", "render": ptype },
             { "data": "cname" },
             { "data": "quantity", "render": quantityFormat },
-            { "data": "tax" },
+            { "data": "lifetime" },
             { "data": "tax_method", "render": method },
             <?php if ($Admin) { ?>
             { "data": "cost", "render": currencyFormat, "searchable": false },
@@ -155,7 +155,7 @@
                                 <th class="col-xs-1"><?= lang("type"); ?></th>
                                 <th class="col-xs-1"><?= lang("category"); ?></th>
                                 <th class="col-xs-1"><?= lang("quantity"); ?></th>
-                                <th class="col-xs-1"><?= lang("tax"); ?></th>
+                                <th class="col-xs-1">Lifetime</th>
                                 <th class="col-xs-1"><?= lang("method"); ?></th>
                                 <?php if ($Admin) { ?>
                                     <th class="col-xs-1"><?= lang("cost"); ?></th>

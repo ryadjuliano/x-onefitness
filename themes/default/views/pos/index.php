@@ -334,7 +334,7 @@
                                                 <?php foreach($customers as $customer){ $cus[$customer->id] = $customer->name; } ?>
                                                 <?= form_dropdown('customer_id', $cus, set_value('customer_id', $Settings->default_customer), 'id="spos_customer" data-placeholder="' . lang("select") . ' ' . lang("customer") . '" required="required" class="form-control select2" style="width:100%;position:absolute;"'); ?>
                                                 <div class="input-group-addon no-print" style="padding: 2px 5px;">
-                                                    <a href="#" id="add-customer" class="external" data-toggle="modal" data-target="#myModal"><i class="fa fa-2x fa-plus-circle" id="addIcon"></i></a>
+                                                    <a href="#"  class="external" ><i class="fa fa-2x fa-minus-circle" id="addIcon"></i></a>
                                                 </div>
                                             </div>
                                             <div style="clear:both;"></div>

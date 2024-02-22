@@ -488,25 +488,41 @@ class Pos extends MY_Controller {
         $term = $this->input->get('term', TRUE);
 
         $rows = $this->pos_model->getProductNames($term);
+        
         if ($rows) {
+            $pr = array();
+        
             foreach ($rows as $row) {
                 unset($row->cost, $row->details);
                 $row->qty = 1;
                 $row->comment = '';
                 $row->discount = '0';
-                $row->price = $row->store_price > 0 ? $row->store_price : $row->price;
+                
+                // Check if 'store_price' property exists in $row
+                $row->price = isset($row->store_price) && $row->store_price > 0 ? $row->store_price : $row->price;
+        
                 $row->real_unit_price = $row->price;
                 $row->unit_price = $row->tax ? ($row->price+(($row->price*$row->tax)/100)) : $row->price;
+                
                 $combo_items = FALSE;
                 if ($row->type == 'combo') {
                     $combo_items = $this->pos_model->getComboItemsByPID($row->id);
                 }
-                $pr[] = array('id' => str_replace(".", "", microtime(true)), 'item_id' => $row->id, 'label' => $row->name . " (" . $row->code . ")", 'row' => $row, 'combo_items' => $combo_items);
+                
+                $pr[] = array(
+                    'id' => str_replace(".", "", microtime(true)), 
+                    'item_id' => $row->id, 
+                    'label' => $row->name . " (" . $row->code . ")", 
+                    'row' => $row, 
+                    'combo_items' => $combo_items
+                );
             }
+        
             echo json_encode($pr);
         } else {
             echo json_encode(array(array('id' => 0, 'label' => lang('no_match_found'), 'value' => $term)));
         }
+        
     }
 
 

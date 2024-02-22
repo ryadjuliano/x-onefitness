@@ -344,6 +344,7 @@ class Products extends MY_Controller
                 'tax_method' => $this->input->post('tax_method'),
                 'alert_quantity' => $this->input->post('alert_quantity'),
                 'details' => $this->input->post('details'),
+                'lifetime' => $this->input->post('lifetime'),
                 'barcode_symbology' => $this->input->post('barcode_symbology'),
                 );
 
