@@ -791,10 +791,16 @@
                                     <select id="paid_by" class="form-control paid_by select2" style="width:100%;">
                                         <option value="cash"><?= lang("cash"); ?></option>
                                         <option value="CC"><?= lang("cc"); ?></option>
-                                        <option value="cheque"><?= lang("cheque"); ?></option>
-                                        <option value="gift_card"><?= lang("gift_card"); ?></option>
-                                        <?= isset($Settings->stripe) ? '<option value="stripe">' . lang("stripe") . '</option>' : ''; ?>
+                                        <option value="EDC BCA">EDC BCA</option>
+                                        <option value="EDC Mandiri">EDC Mandiri</option>
+                                        <option value="EDC BNI">EDC BNI</option>
+                                        <option value="Qris">Qris</option>
+                                        <option value="transfer">Transfer</option>
                                         <option value="other"><?= lang("other"); ?></option>
+                                       
+                                        <!-- <option value="gift_card"><?= lang("gift_card"); ?></option>
+                                        <?= isset($Settings->stripe) ? '<option value="stripe">' . lang("stripe") . '</option>' : ''; ?>
+                                        <option value="other"><?= lang("other"); ?></option> -->
                                     </select>
                                 </div>
                             </div>
