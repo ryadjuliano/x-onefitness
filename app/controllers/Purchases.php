@@ -125,7 +125,7 @@ class Purchases extends MY_Controller
                 $this->load->library('upload');
                 $config['upload_path'] = 'uploads/';
                 $config['allowed_types'] = $this->allowed_types;
-                $config['max_size'] = '2000';
+                $config['max_size'] = '10000000';
                 $config['overwrite'] = FALSE;
                 $config['encrypt_name'] = TRUE;
                 $this->upload->initialize($config);
