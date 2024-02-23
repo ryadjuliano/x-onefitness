@@ -206,11 +206,38 @@ class Customers extends MY_Controller
 
         if ($this->form_validation->run() == true) {
 
-            $data = array('name' => $this->input->post('name'),
+            // $data = array('name' => $this->input->post('name'),
+            //     'email' => $this->input->post('email'),
+            //     'phone' => $this->input->post('phone'),
+            //     'address' => $this->input->post('address'),
+            //     // 'cf2' => $this->input->post('cf2')
+            // );
+            $dob = $this->input->post('dob');
+            $startDate = $this->input->post('start_date');
+
+            $dateOfBirth = DateTime::createFromFormat('m/d/Y', $dob);
+            $dateStartDate = DateTime::createFromFormat('m/d/Y', $startDate);
+
+            // Convert the DateTime object to the desired format
+            // $formattedDateDOB = $dateOfBirth->format('Y-m-d');
+            $formattedDateStartDate = $dateStartDate->format('Y-m-d');
+
+
+            $data = array(
+                'member_code' => $this->generateMembershipNumber(),
+                'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'phone' => $this->input->post('phone'),
+                'idcard' => $this->input->post('idcard'),
+                'no_id' => $this->input->post('no_id'),
+                'occupation' => $this->input->post('occupation'),
+                'sex' => $this->input->post('sex'),
+                'place' => $this->input->post('place'),
+                // 'dob' => $formattedDateDOB,
                 'address' => $this->input->post('address'),
-                // 'cf2' => $this->input->post('cf2')
+                'start_date' => $formattedDateStartDate,
+                'emergency_person' => $this->input->post('emergency_person'),
+                'emergency_number' => $this->input->post('emergency_number'),
             );
 
         }
