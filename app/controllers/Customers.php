@@ -68,9 +68,11 @@ class Customers extends MY_Controller
         // exclamation
         // ->add_column("Active", "<div class='text-center'><div class='btn-group'> <a href='" . site_url('customers/banned/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-exclamation'></i></a></div></div>", "id")
         ->add_column("Actions", "<div class='text-center'><div class='btn-group'> 
+        <a href='" . site_url('customers/edit/$1') . "'  class='tip btn btn-default btn-xs' title='Edit Member'><i class='fa fa-edit'></i></a>   
         <a href='" . site_url('customers/delete/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-trash-o'></i></a>
         <a href='" . site_url('customers/banned/$1') . "' onClick=\"return confirm('Apakah Kamu Yakin ingin Meng Nonaktifkan  ?')\" class='tip btn btn-warning btn-xs' title='Banned Member'><i class='fa fa-ban'></i></a>
-        <a href='" . site_url('customers/active/$1') . "' onClick=\"return confirm('Apakah Kamu Yakin ingin Mengaktifkan Kembali ?')\" class='tip btn btn-success btn-xs' title='Active Member'><i class='fa fa-check'></i></a>                
+        <a href='" . site_url('customers/active/$1') . "' onClick=\"return confirm('Apakah Kamu Yakin ingin Mengaktifkan Kembali ?')\" class='tip btn btn-success btn-xs' title='Active Member'><i class='fa fa-check'></i></a>   
+
         </div></div>", "id")
         ->unset_column('id');
         // src="' . base_url() . 'uploads/avatars/' . $user->gender . '.png"
@@ -207,8 +209,8 @@ class Customers extends MY_Controller
             $data = array('name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'phone' => $this->input->post('phone'),
-                'cf1' => $this->input->post('cf1'),
-                'cf2' => $this->input->post('cf2')
+                'address' => $this->input->post('address'),
+                // 'cf2' => $this->input->post('cf2')
             );
 
         }
@@ -221,6 +223,7 @@ class Customers extends MY_Controller
         } else {
 
             $this->data['customer'] = $this->customers_model->getCustomerByID($id);
+            
             $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
             $this->data['page_title'] = lang('edit_customer');
             $bc = array(array('link' => site_url('customers'), 'page' => lang('customers')), array('link' => '#', 'page' => lang('edit_customer')));

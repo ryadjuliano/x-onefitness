@@ -27,14 +27,18 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label" for="cf1"><?= $this->lang->line("ccf1"); ?></label>
-              <?= form_input('cf1', set_value('cf1', $customer->cf1), 'class="form-control input-sm" id="cf1"'); ?>
+              <label class="control-label" for="cf1">Address</label>
+              <?= form_textarea('address', set_value('address', $customer->address), '  rows="3" class="form-control " id="address"'); ?>
+              <!-- <textarea class="form-control" name="address" rows="3" value="<?php echo $customer->address; ?>"></textarea> -->
             </div>
+            <!-- address -->
 
-            <div class="form-group">
+           
+
+            <!-- <div class="form-group">
               <label class="control-label" for="cf2"><?= $this->lang->line("ccf2"); ?></label>
               <?= form_input('cf2', set_value('cf2', $customer->cf2), 'class="form-control input-sm" id="cf2"');?>
-            </div>
+            </div> -->
 
 
             <div class="form-group">
