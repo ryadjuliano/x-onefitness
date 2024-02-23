@@ -220,8 +220,8 @@ class Purchases extends MY_Controller
 
                 $this->load->library('upload');
                 $config['upload_path'] = 'uploads/';
-                $config['allowed_types'] = $this->allowed_types;
-                $config['max_size'] = '2000';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size'] = '2000000000';
                 $config['overwrite'] = FALSE;
                 $config['encrypt_name'] = TRUE;
                 $this->upload->initialize($config);
@@ -467,8 +467,8 @@ class Purchases extends MY_Controller
             if ($_FILES['userfile']['size'] > 0) {
                 $this->load->library('upload');
                 $config['upload_path'] = 'uploads/';
-                $config['allowed_types'] = $this->allowed_types;
-                $config['max_size'] = '2000';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size'] = '2000000000';
                 $config['overwrite'] = FALSE;
                 $config['encrypt_name'] = TRUE;
                 $this->upload->initialize($config);
