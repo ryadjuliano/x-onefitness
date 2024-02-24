@@ -331,7 +331,15 @@
                                     <div id="lefttop" style="margin-bottom:5px;">
                                         <div class="form-group" style="margin-bottom:5px;">
                                             <div class="input-group">
-                                                <?php foreach($customers as $customer){ $cus[$customer->id] = $customer->name; } ?>
+                                            <!-- Invalid argument supplied for foreach() -->
+                                            <?php
+                                                $cus = array(); // Initialize $cus as an empty array
+                                                if (!empty($customers)) {
+                                                    foreach ($customers as $customer) {
+                                                        $cus[$customer->id] = $customer->name;
+                                                    }
+                                                }
+                                                ?>
                                                 <?= form_dropdown('customer_id', $cus, set_value('customer_id', $Settings->default_customer), 'id="spos_customer" data-placeholder="' . lang("select") . ' ' . lang("customer") . '" required="required" class="form-control select2" style="width:100%;position:absolute;"'); ?>
                                                 <div class="input-group-addon no-print" style="padding: 2px 5px;">
                                                     <a href="#"  class="external" ><i class="fa fa-2x fa-minus-circle" id="addIcon"></i></a>
