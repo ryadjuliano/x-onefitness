@@ -731,10 +731,19 @@ class Pos extends MY_Controller {
         $this->data['printer'] = $this->site->getPrinterByID($this->Settings->printer);
         $this->data['store'] = $this->site->getStoreByID($inv->store_id);
         $this->data['page_title'] = lang("invoice");
-        // 
-        $this->data['pro'] = $this->products_model->getProductById($this->data['rows'][0]->product_id);
-        $lifetime =   $this->data['pro']->lifetime;
-       
+        $rows = $this->pos_model->getAllSaleItems($sale_id);
+
+        foreach ($rows as $row) {
+            // Access the product_id property of each object
+            $productId = $row->product_id;
+            $products = $this->products_model->getProductById($productId);
+        
+            $admin = $products->lifetime;
+            if ($admin !== 'admin') {
+                $lifetime = $products->lifetime;
+            }
+        }
+
         $id =   $this->data['customer']->id;
         $date = date("Y-m-d");
         $mod_date = strtotime($date . '+ '.$lifetime);
@@ -747,6 +756,10 @@ class Pos extends MY_Controller {
             'start_date' => $start_date,
             'end_date' => $end_date
             );
+        // echo "<pre />";
+        // print_r($dataStatus);
+        // exit();
+       
         $this->customers_model->updateCustomer($id, $dataStatus);
         // echo "<pre />";
         // print_r($id);

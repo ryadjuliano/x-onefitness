@@ -295,10 +295,14 @@
                     <ul class="treeview-menu">
                         <li id="purchases_expenses"><a href="<?= site_url('purchases/expenses'); ?>"><i class="fa fa-circle-o"></i> <?= lang('list_expenses'); ?></a></li>
                         <li id="purchases_add_expense"><a href="<?= site_url('purchases/add_expense'); ?>"><i class="fa fa-circle-o"></i> <?= lang('add_expense'); ?></a></li>
+                        <li class="divider"></li>
+                        <li id="suppliers_index"><a href="<?= site_url('suppliers'); ?>"><i class="fa fa-circle-o"></i> <?= lang('list_suppliers'); ?></a></li>
+                        <!-- <li id="suppliers_add"><a href="<?= site_url('suppliers/add'); ?>"><i class="fa fa-circle-o"></i> <?= lang('add_supplier'); ?></a></li> -->
                     </ul>
                 </li>
                 <?php } ?>
-                <li class="treeview mm_gift_cards">
+                
+                <!-- <li class="treeview mm_gift_cards">
                     <a href="#">
                         <i class="fa fa-credit-card"></i>
                         <span><?= lang('gift_cards'); ?></span>
@@ -308,18 +312,18 @@
                         <li id="gift_cards_index"><a href="<?= site_url('gift_cards'); ?>"><i class="fa fa-circle-o"></i> <?= lang('list_gift_cards'); ?></a></li>
                         <li id="gift_cards_add"><a href="<?= site_url('gift_cards/add'); ?>"><i class="fa fa-circle-o"></i> <?= lang('add_gift_card'); ?></a></li>
                     </ul>
-                </li>
-                <li class="treeview mm_customers">
+                </li> -->
+                <!-- <li class="treeview mm_customers">
                     <a href="#">
                         <i class="fa fa-users"></i>
-                        <span><?= lang('customers'); ?></span>
+                        <span>Members</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li id="customers_index"><a href="<?= site_url('customers'); ?>"><i class="fa fa-circle-o"></i> <?= lang('list_customers'); ?></a></li>
-                        <li id="customers_add"><a href="<?= site_url('customers/add'); ?>"><i class="fa fa-circle-o"></i> <?= lang('add_customer'); ?></a></li>
+                        <li id="customers_index"><a href="<?= site_url('customers'); ?>"><i class="fa fa-circle-o"></i> List Members</a></li>
+                        <li id="customers_add"><a href="<?= site_url('customers/add'); ?>"><i class="fa fa-circle-o"></i> Add Members</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <?php } ?>
             </ul>
         </section>

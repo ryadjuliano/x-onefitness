@@ -47,7 +47,7 @@ class Sales extends MY_Controller {
         // // $this->datatables->unset_column('id');
         // echo $this->datatables->generate();
         $this->datatables
-        ->select("sales.*, sales.id, sale_items.product_name as product_name")
+        ->select("sales.*, sales.id, sale_items.product_name as product_name, sale_items.real_unit_price as total,sale_items.real_unit_price as grand_total,sale_items.real_unit_price as paid")
         ->from("sales")
         ->join("sale_items", "sales.id = sale_items.sale_id", "left")
         // ->add_column("Actions", "<div class='text-center'><div class='btn-group'><a href='" . site_url('customers/checkout/$1') . "' class='tip btn btn-success btn-xs' title=''><i class='fa fa-calendar'></i></a> <a href='" . site_url('customers/delete/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-trash-o'></i></a></div></div>", "id_a")

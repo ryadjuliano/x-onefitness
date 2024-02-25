@@ -9,10 +9,10 @@ class Suppliers extends MY_Controller
         if (!$this->loggedIn) {
             redirect('login');
         }
-        if (!$this->Admin) {
-            $this->session->set_flashdata('error', lang('access_denied'));
-            redirect('pos');
-        }
+        // if (!$this->Admin) {
+        //     $this->session->set_flashdata('error', lang('access_denied'));
+        //     redirect('pos');
+        // }
 
         $this->load->library('form_validation');
         $this->load->model('suppliers_model');
@@ -82,7 +82,7 @@ class Suppliers extends MY_Controller
     function edit($id = NULL) {
         if (!$this->Admin) {
             $this->session->set_flashdata('error', $this->lang->line('access_denied'));
-            redirect('pos');
+            redirect('suppliers');
         }
         if($this->input->get('id')) { $id = $this->input->get('id', TRUE); }
 
@@ -120,7 +120,7 @@ class Suppliers extends MY_Controller
     function delete($id = NULL) {
         if(DEMO) {
             $this->session->set_flashdata('error', $this->lang->line("disabled_in_demo"));
-            redirect('pos');
+            redirect('suppliers');
         }
 
         if($this->input->get('id')) { $id = $this->input->get('id', TRUE); }
@@ -128,7 +128,7 @@ class Suppliers extends MY_Controller
         if (!$this->Admin)
         {
             $this->session->set_flashdata('error', lang("access_denied"));
-            redirect('pos');
+            redirect('suppliers');
         }
 
         if ( $this->suppliers_model->deleteSupplier($id) )
