@@ -732,38 +732,43 @@ class Pos extends MY_Controller {
         $this->data['store'] = $this->site->getStoreByID($inv->store_id);
         $this->data['page_title'] = lang("invoice");
         $rows = $this->pos_model->getAllSaleItems($sale_id);
-
+        $lifetime = 0 ;
         foreach ($rows as $row) {
             // Access the product_id property of each object
             $productId = $row->product_id;
             $products = $this->products_model->getProductById($productId);
-        
+           
             $admin = $products->lifetime;
             if ($admin !== 'admin') {
                 $lifetime = $products->lifetime;
             }
         }
 
-        $id =   $this->data['customer']->id;
-        $date = date("Y-m-d");
-        $mod_date = strtotime($date . '+ '.$lifetime);
+        if (!$lifetime === 'undefined' || !$lifetime == 0) {
+            $id =   $this->data['customer']->id;
+            $date = date("Y-m-d");
+            $mod_date = strtotime($date . '+ '.$lifetime);
+    
+            $start_date = $this->data['customer']->start_date;
+            $end_date = date("Y-m-d",$mod_date);
+    
+            $dataStatus = array(
+                'status' => 1,
+                'start_date' => $start_date,
+                'end_date' => $end_date
+                );
+            // echo "<pre />";
+            // print_r($dataStatus);
+            // exit();
+           
+            $this->customers_model->updateCustomer($id, $dataStatus);
+            // echo "<pre />";
+            // print_r($id);
+            // exit();
 
-        $start_date = $this->data['customer']->start_date;
-        $end_date = date("Y-m-d",$mod_date);
+        }
 
-        $dataStatus = array(
-            'status' => 1,
-            'start_date' => $start_date,
-            'end_date' => $end_date
-            );
-        // echo "<pre />";
-        // print_r($dataStatus);
-        // exit();
-       
-        $this->customers_model->updateCustomer($id, $dataStatus);
-        // echo "<pre />";
-        // print_r($id);
-        // exit();
+      
         $this->load->view($this->theme.'pos/'.($this->Settings->print_img ? 'eview' : 'view'), $this->data);
 
     }

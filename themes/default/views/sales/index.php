@@ -35,7 +35,7 @@
             { "data": "id", "visible": false },
             { "data": "date", "render": hrld },
             { "data": "customer_name" },
-            { "data": "product_name" },
+            // { "data": "product_name" },
             { "data": "total", "render": currencyFormat },
             { "data": "total_tax", "render": currencyFormat },
             { "data": "total_discount", "render": currencyFormat },
@@ -101,7 +101,7 @@
                                     <th style="max-width:30px;"><?= lang("id"); ?></th>
                                     <th class="col-xs-2"><?= lang("date"); ?></th>
                                     <th><?= lang("customer"); ?></th>
-                                    <th>Product Name</th>
+                                    <!-- <th>Product Name</th> -->
                                     <th class="col-xs-1"><?= lang("total"); ?></th>
                                     <th class="col-xs-1"><?= lang("tax"); ?></th>
                                     <th class="col-xs-1"><?= lang("discount"); ?></th>
