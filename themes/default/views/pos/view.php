@@ -106,7 +106,7 @@ if ($modal) {
                                         </tr>
                                         <?php
                                         if ($inv->order_tax != 0) {
-                                            echo '<tr><th colspan="2">' . lang("order_tax") . '</th><th colspan="2" class="text-right">' . $this->tec->formatMoney($inv->order_tax) . '</th></tr>';
+                                            echo '<tr><th colspan="2">Miscellaneous</th><th colspan="2" class="text-right">' . $this->tec->formatMoney($inv->order_tax) . '</th></tr>';
                                         }
                                         if ($inv->total_discount != 0) {
                                             echo '<tr><th colspan="2">' . lang("order_discount") . '</th><th colspan="2" class="text-right">' . $this->tec->formatMoney($inv->total_discount) . '</th></tr>';

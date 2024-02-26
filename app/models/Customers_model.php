@@ -95,4 +95,13 @@ class Customers_model extends CI_Model
         return FALSE;
     }
 
+    public function deleteAttendance($id) {
+        if($this->db->delete('attendance', array('id_a' => $id))) {
+            return true;
+        }
+        return FALSE;
+    }
+
+    
+
 }

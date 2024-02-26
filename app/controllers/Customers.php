@@ -49,7 +49,11 @@ class Customers extends MY_Controller
         ->select("attendance.*,attendance.id_a, customers.name as customer_name")
         ->from("attendance")
         ->join("customers", "attendance.member_id = customers.member_code", "left")
-        ->add_column("Actions", "<div class='text-center'><div class='btn-group'><a href='" . site_url('customers/checkout/$1') . "' class='tip btn btn-success btn-xs' title=''><i class='fa fa-calendar'></i></a></div></div>", "id_a")
+        ->add_column("Actions", "<div class='text-center'><div class='btn-group'>
+            <a href='" . site_url('customers/checkout/$1') . "' class='tip btn btn-success btn-xs' title=''><i class='fa fa-calendar'></i></a>
+            
+            <a href='" . site_url('customers/attendancedel/$1') . "' class='tip btn btn-danger btn-xs' title=''><i class='fa fa-trash-o'></i></a></div></div>", "id_a")
+            
         ->unset_column('id_a');
         // src="' . base_url() . 'uploads/avatars/' . $user->gender . '.png"
         // print_r( $this->datatables->generate());
@@ -282,6 +286,29 @@ class Customers extends MY_Controller
 
     }
 
+    function attendancedel($id = NULL) {
+        if(DEMO) {
+            $this->session->set_flashdata('error', $this->lang->line("disabled_in_demo"));
+            redirect('customers/attendance');
+        }
+
+        if($this->input->get('id')) { $id = $this->input->get('id', TRUE); }
+
+        if (!$this->Admin)
+        {
+            $this->session->set_flashdata('error', lang("access_denied"));
+            redirect('customers/attendance');
+        }
+
+        if ( $this->customers_model->deleteAttendance($id) )
+        {
+            $this->session->set_flashdata('message', 'Attendance Deleted');
+            redirect("customers/attendance");
+        }
+        
+    }
+
+    
     function checkout($id = NULL) {
         if(DEMO) {
             $this->session->set_flashdata('error', $this->lang->line("disabled_in_demo"));
