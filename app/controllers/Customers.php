@@ -310,11 +310,6 @@ class Customers extends MY_Controller
 
     
     function checkout($id = NULL) {
-        if(DEMO) {
-            $this->session->set_flashdata('error', $this->lang->line("disabled_in_demo"));
-            redirect('pos');
-        }
-
         if($this->input->get('id')) { $id = $this->input->get('id', TRUE); }
 
         // if (!$this->Admin)
@@ -325,11 +320,12 @@ class Customers extends MY_Controller
        
         $data = array(
             'check_out' =>date("h:i:s"),
-            'status' => 0,
+            'status_att' => 0,
         );
+        
         //  $res =  $this->customers_model->updateustomerChecout($code, $data);
 
-        if ( $this->customers_model->updateustomerChecout($id, $data) )
+        if($this->customers_model->updateustomerChecout($id, $data))
         {
             // $this->session->set_flashdata('message', lang("customer_deleted"));
             redirect("customers/attendance");
@@ -355,12 +351,13 @@ class Customers extends MY_Controller
             'status' => 0,
         );
         //  $res =  $this->customers_model->updateustomerChecout($code, $data);
-
-        if ( $this->customers_model->BannedCust($id, $data) )
-        {
-            $this->session->set_flashdata('message', 'Customers Non Active');
-            redirect("customers");
-        }   
+        print_r( $this->customers_model->BannedCust($id, $data) );
+            exit;
+        // if ( $this->customers_model->BannedCust($id, $data) )
+        // {
+        //     $this->session->set_flashdata('message', 'Customers Non Active');
+        //     redirect("customers");
+        // }   
     }
 
     function active($id = NULL) {
