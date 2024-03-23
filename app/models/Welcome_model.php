@@ -116,13 +116,15 @@ class Welcome_model extends CI_Model
 
     }
 
-    public function getMember() {
-      //  $dateToday = date('Y-m-d');
-
-        //$this->db->where('DATE(date_checkin) =', $dateToday);
+    public function getMember($status) {
+        $this->db->where('status', $status); // Adding condition where status is 1
+        //$dateToday = date('Y-m-d');
+        //$this->db->where('DATE(date_checkin)', $dateToday);
         $data = $this->db->count_all_results('customers');
         return $data;
 
     }
+
+
 
 }

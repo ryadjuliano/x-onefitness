@@ -32,7 +32,9 @@ class Welcome extends MY_Controller
         $this->data['topProducts'] = $this->welcome_model->topProducts();
         $this->data['chartData'] = $this->welcome_model->getChartData();
         $this->data['checkinData'] = $this->welcome_model->getCheckin();
-        $this->data['members'] = $this->welcome_model->getMember();
+        $this->data['members'] = $this->welcome_model->getMember(1);
+        $this->data['membersNon'] = $this->welcome_model->getMember(0);
+
         $sales = $this->reports_model->getDailySales($year, $month);
         
         $start = $year.'-'.$month.'-01 00:00:00';

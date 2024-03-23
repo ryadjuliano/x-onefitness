@@ -32,13 +32,17 @@ if ($chartData) {
                     data: { search: searchTerm },
                     dataType: 'json',
                     success: function(data) {
-                        // console.log('-->', data[0].start_date)
                         $('#checkIn').prop('disabled', false);
                         $('#checkOut').prop('disabled', false);
+                        // $('#name_person').prop('disabled', false);
+
+                        // name_person
+                        // name_
                         $("#hasil").html("");
                         const startDate =  data[0].end_date;
                         const date_checkin = data[0].date_checkin;
                         const StatusMember = data[0].status;
+                        const NameMember = data[0].name;
                         
                         // id_a
                         // const id_att = 
@@ -73,6 +77,8 @@ if ($chartData) {
                         $('#shadow').show();
                         $('#member_code').val(data[0].member_code);
                         $('#exp').val(data[0].end_date);
+                        $('#name_person').val(data[0].name);
+                        // $('#name_person').prop('disabled', false);
                         
                     },
                     error: function(error) {
@@ -321,10 +327,10 @@ if ($chartData) {
                 <div class="clearfix visible-sm-block"></div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-bar-chart-o"></i></span>
+                        <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Income</span>
-                            <span class="info-box-number"><?= $this->tec->formatMoney($total_sales->total_amount) ?></span>
+                            <span class="info-box-text">Members Active</span>
+                            <span class="info-box-number"><?php echo $members; ?></span>
                         </div>
 
                     </div>
@@ -335,8 +341,8 @@ if ($chartData) {
                     <div class="info-box">
                         <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Total Members</span>
-                            <span class="info-box-number"><?php echo $members; ?></span>
+                            <span class="info-box-text">Members InActive</span>
+                            <span class="info-box-number"><?php echo $membersNon; ?></span>
                         </div>
 
                     </div>
@@ -381,9 +387,23 @@ if ($chartData) {
                             </div>
                             
                         </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text"  id="name_person" class="form-control" disabled>
+                            </div>
+                            
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Name Package</label>
+                            <div class="col-sm-10">
+                                <input type="text"  id="name_package" class="form-control" disabled>
+                            </div>
+                            
+                        </div> -->
                        
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Active Package</label>
+                            <label for="inputEmail3" class="col-sm-2 control-label">Active Package Date</label>
                             <div class="col-sm-10">
                                 <input type="text"  id="exp" class="form-control" disabled>
                             </div>
