@@ -23,6 +23,8 @@
             <span class="logo-lg"><?= $Settings->site_name ?></span>
             <?php } ?>
         </a>
+
+        
         <nav class="navbar navbar-static-top" role="navigation">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
@@ -30,6 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
+            
             <ul class="nav navbar-nav pull-left">
                 <li class="dropdown hidden-xs">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<?= $assets; ?>images/<?= $Settings->selected_language; ?>.png" alt="<?= $Settings->selected_language; ?>"></a>
@@ -51,6 +54,8 @@
                 <?php } ?>
             </ul>
             <div class="navbar-custom-menu">
+
+            
                 <ul class="nav navbar-nav">
                     <li class="hidden-xs hidden-sm"><a href="#" class="clock"></a></li>
                     <li class="hidden-xs"><a href="<?= site_url(); ?>" data-toggle="tooltip" data-placement="bottom" title="<?= lang('dashboard'); ?>"><i class="fa fa-dashboard"></i></a></li>
@@ -61,6 +66,12 @@
                     <li><a href="<?= site_url('pos/view_bill'); ?>" target="_blank" data-toggle="tooltip" data-placement="bottom" title="<?= lang('view_bill'); ?>"><i class="fa fa-desktop"></i></a></li>
                     <?php } ?>
                     <li><a href="<?= site_url('pos'); ?>" data-toggle="tooltip" data-placement="bottom" title="<?= lang('pos'); ?>"><i class="fa fa-th"></i></a></li>
+                    <li>
+                        <a href="<?= site_url('reports/customers'); ?>" data-toggle="tooltip" data-placement="bottom" title="Alerts Customer">
+                            <i class="fa fa-bullhorn"></i>
+                            <span class="label label-danger"><?= $qty_alert_num_cust; ?></span>
+                        </a>
+                    </li>
                     <?php if ($Admin && $qty_alert_num && $this->session->userdata('store_id')) { ?>
                     <li>
                         <a href="<?= site_url('reports/alerts'); ?>" data-toggle="tooltip" data-placement="bottom" title="<?= lang('alerts'); ?>">
@@ -120,6 +131,7 @@
         </nav>
     </header>
 
+    
     <aside class="main-sidebar">
         <section class="sidebar">
             <ul class="sidebar-menu">
@@ -345,6 +357,8 @@
                 ?>
             </ol>
         </section>
+
+        
 
         <div class="col-lg-12 alerts">
             <div id="custom-alerts" style="display:none;">

@@ -44,6 +44,7 @@ class MY_Controller extends CI_Controller {
         $meta['store'] = $data['store'];
         $meta['suspended_sales'] = $this->site->getUserSuspenedSales();
         $meta['qty_alert_num'] = $this->site->getQtyAlerts();
+        $meta['qty_alert_num_cust'] = $this->site->getQtyAlertsCustomers();
         $this->load->view($this->theme . 'header', $meta);
         $this->load->view($this->theme . $page, $data);
         $this->load->view($this->theme . 'footer');

@@ -17,6 +17,36 @@ class Site extends CI_Model
         return $this->db->count_all_results('products');
     }
 
+    public function getQtyAlertsCustomers() {
+        if (!$this->session->userdata('store_id')) {
+            return 0;
+        }
+
+        // $today = 'CURDATE()';
+        // $oneWeekFromNow = 'DATE_ADD(CURDATE(), INTERVAL 7 DAY)';
+        
+        // // Initialize a query on the 'customers' table and specify the columns to fetch
+        // $this->db
+        //     ->select("customers")
+        //     // ->from('customers')
+        //     ->where("customers.end_date BETWEEN $today AND $oneWeekFromNow");
+       
+        // return $this->db->count_all_results('customers');
+
+        // $this->db
+        //     ->select("customers.*") // Ensure you are selecting columns correctly
+        //     ->where("customers.end_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)", NULL, FALSE);
+
+        // // Return the count of all results that match the condition
+        // $aa = $this->db->count_all_results('customers');
+        // print_r($aa);
+
+        return $this->db->where("end_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)", NULL, FALSE)
+                  ->count_all_results('customers');
+// retrun $count;
+        // return 
+    }
+
     public function getProductByID($id, $store_id = NULL) {
         if (!$store_id) {
             $store_id = $this->session->userdata('store_id');

@@ -319,4 +319,34 @@ class Reports extends MY_Controller
         echo $this->datatables->generate();
     }
 
+    function customers() {
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['page_title'] = lang('stock_alert');
+        $bc = array(array('link' => '#', 'page' => lang('stock_alert')));
+        $meta = array('page_title' => lang('stock_alert'), 'bc' => $bc);
+        $this->page_construct('reports/customers', $this->data, $meta);
+
+    }
+
+    function get_customers() {
+        $this->load->library('datatables');
+
+        // Today's date and 1 week from today in MySQL
+        $today = 'CURDATE()';
+        $oneWeekFromNow = 'DATE_ADD(CURDATE(), INTERVAL 7 DAY)';
+        
+        // Initialize a query on the 'customers' table and specify the columns to fetch
+        $this->datatables
+            ->select("customers.*")
+            ->from('customers')
+            ->where("customers.end_date BETWEEN $today AND $oneWeekFromNow");
+            // ->group_by('products.id'); // Uncomment and adjust if grouping is needed
+        $this->datatables->add_column("Status", "<div class='text-center'><a href='#' class='btn btn-xs btn-danger ap tip' title=''>Almost Expired</a></div>");
+        
+        // Generate the DataTables JSON
+        echo $this->datatables->generate();
+        
+    }
+    
+
 }
