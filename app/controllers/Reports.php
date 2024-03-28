@@ -11,10 +11,10 @@ class Reports extends MY_Controller
             redirect('login');
         }
 
-        if ( ! $this->Admin) {
-            $this->session->set_flashdata('error', lang('access_denied'));
-            redirect('pos');
-        }
+        // if ( ! $this->Admin) {
+        //     $this->session->set_flashdata('error', lang('access_denied'));
+        //     redirect('pos');
+        // }
 
         $this->load->model('reports_model');
     }
