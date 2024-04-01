@@ -432,13 +432,10 @@ class Customers extends MY_Controller
             'status' => 0,
         );
         //  $res =  $this->customers_model->updateustomerChecout($code, $data);
-        print_r( $this->customers_model->BannedCust($id, $data) );
-            exit;
-        // if ( $this->customers_model->BannedCust($id, $data) )
-        // {
-        //     $this->session->set_flashdata('message', 'Customers Non Active');
-        //     redirect("customers");
-        // }   
+        // print_r( $this->customers_model->BannedCust($id,
+            $this->customers_model->BannedCust($id, $data);
+            $this->session->set_flashdata('message', 'Customers Non Active');
+            redirect("customers");
     }
 
     function active($id = NULL) {
