@@ -750,28 +750,28 @@ class Pos extends MY_Controller {
             $cust = $this->data['customer'];
 
            // Misalkan ini adalah tanggal jatuh tempo saat ini
-           $tanggalJatuhTempo = new DateTime($cust->end_date);
+        //    $tanggalJatuhTempo = new DateTime($cust->end_date);
 
-           // Ini adalah tanggal saat ini
-           $tanggalSekarang = new DateTime(); // atau tanggal lain sesuai kebutuhan
+        //    // Ini adalah tanggal saat ini
+        //    $tanggalSekarang = new DateTime(); // atau tanggal lain sesuai kebutuhan
 
-           // Hitung selisih hari jika hari ini kurang dari tanggal jatuh tempo
-           if ($tanggalSekarang < $tanggalJatuhTempo) {
-               $selisih = $tanggalSekarang->diff($tanggalJatuhTempo);
-               $sisaHari = $selisih->days;
-           } else {
-               $sisaHari = 0; // Jika sudah melewati jatuh tempo, sisa hari dianggap 0
-           }
+        //    // Hitung selisih hari jika hari ini kurang dari tanggal jatuh tempo
+        //    if ($tanggalSekarang < $tanggalJatuhTempo) {
+        //        $selisih = $tanggalSekarang->diff($tanggalJatuhTempo);
+        //        $sisaHari = $selisih->days;
+        //    } else {
+        //        $sisaHari = 0; // Jika sudah melewati jatuh tempo, sisa hari dianggap 0
+        //    }
 
 
-           // echo $lifetime;
-           // Tambahkan 1 bulan ke tanggal jatuh tempo
-           $tanggalJatuhTempo->modify($lifetime);
+        //    // echo $lifetime;
+        //    // Tambahkan 1 bulan ke tanggal jatuh tempo
+        //    $tanggalJatuhTempo->modify($lifetime);
 
-           // Jika ada sisa hari sebelum jatuh tempo, tambahkan ke tanggal yang sudah diperpanjang
-           if ($sisaHari > 0) {
-               $tanggalJatuhTempo->modify("+$sisaHari days");
-           }
+        //    // Jika ada sisa hari sebelum jatuh tempo, tambahkan ke tanggal yang sudah diperpanjang
+        //    if ($sisaHari > 0) {
+        //        $tanggalJatuhTempo->modify("+$sisaHari days");
+        //    }
 
         //    // Format untuk menampilkan tanggal
         //    echo "Tanggal jatuh tempo baru adalah: " . $tanggalJatuhTempo->format('Y-m-d');
@@ -791,7 +791,8 @@ class Pos extends MY_Controller {
             } else {
                 // $cust = $this->data['customer'];
                 $start_date = $cust->end_date;
-                $end_date = $tanggalJatuhTempo->format('Y-m-d');
+                $mod_date = strtotime($start_date . '+ '.$lifetime);
+                $end_date = date("Y-m-d",$mod_date);
                 // echo "2";
             }
     

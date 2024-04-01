@@ -42,6 +42,8 @@
 								<option value="Guru">Guru / Dosen</option>
 							</select>
 						</div>
+
+						
 						<div class="form-group">
 							<label class="control-label" for="email_address">Identity ID</label>
 							<?= form_input('no_id', set_value('no_id', $customer->no_id), 'class="form-control input-sm" '); ?>
@@ -61,6 +63,7 @@
 									<input type="text" class="form-control pull-right" name="start_date" value="<?php echo date('m/d/Y', strtotime($customer->start_date)); ?>" id="datepicker2" required>
 								</div>
 						</div>
+						
 
 					
 					</div>

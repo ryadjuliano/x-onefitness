@@ -23,16 +23,16 @@
             { "data": "email" },
             { "data": "member_code" },
             // { "data": "Photo" },
-            {
-            "data": "Photo",
-            "render": function(data, type, full, meta) {
-                if (full.image !== null && full.image !== undefined && full.image !== '') {
-                    return '<div class="text-center"><div class="btn-group"><a href="' + baseUrl + 'uploads/members/' + full.image + '" class="tip btn btn-success btn-xs" target="_blank"><i class="fa fa-check"></i></a></div></div>';
-                } else {
-                    return '<div class="text-center"><div class="btn-group"><a href="" class="tip btn btn-danger btn-xs" target="_blank"><i class="fa close"></i></a></div></div>';
-                }
-            }
-            },
+            // {
+            // "data": "Photo",
+            // "render": function(data, type, full, meta) {
+            //     if (full.image !== null && full.image !== undefined && full.image !== '') {
+            //         return '<div class="text-center"><div class="btn-group"><a href="' + baseUrl + 'uploads/members/' + full.image + '" class="tip btn btn-success btn-xs" target="_blank"><i class="fa fa-check"></i></a></div></div>';
+            //     } else {
+            //         return '<div class="text-center"><div class="btn-group"><a href="" class="tip btn btn-danger btn-xs" target="_blank"><i class="fa close"></i></a></div></div>';
+            //     }
+            // }
+            // },
             // Active
             // { "data": "Active" },
             {
@@ -110,6 +110,20 @@
             }
         });
 
+        table.columns().every(function () {
+            var self = this;
+            $( 'input', this.footer() ).on( 'keyup change', function (e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if (((code == 13 && self.search() !== this.value) || (self.search() !== '' && this.value === ''))) {
+                    self.search( this.value ).draw();
+                }
+            });
+            $( 'select', this.footer() ).on( 'change', function (e) {
+                self.search( this.value ).draw();
+            });
+        });
+
+
     });
 </script>
 
@@ -130,7 +144,7 @@
                                     <th><?= lang("phone"); ?></th>
                                     <th><?= lang("email_address"); ?></th>
                                     <th>Members Code</th>
-                                    <th>Has Photo</th>
+                                    <!-- <th>Has Photo</th> -->
                                     <th>Active / Non Active</th>
                                     <th>Start Date</th>
                                     <th>Expired Date</th>

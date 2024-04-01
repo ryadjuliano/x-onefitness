@@ -17,6 +17,36 @@ class Products_model extends CI_Model
         }
         return false;
     }
+    public function getAllProductsWithWhere() {
+        // $q = $this->db->get('products');
+        
+        // if ($q->num_rows() > 0) {
+        //     foreach (($q->result()) as $row) {
+        //         $data[] = $row;
+        //     }
+        //     return $data;
+        // }
+        // return false;
+        // $q = $this->db->get_where('products', array('type' => 'service'));
+        // if ($q->num_rows() > 0) {
+        //     foreach (($q->result()) as $row) {
+        //         $data[] = $row;
+        //     }
+        //     return $data;
+        // }
+
+
+        $this->db->where('type', 'service');
+        $this->db->where_not_in('lifetime', 'admin');
+        $q = $this->db->get('products');
+
+        if ($q->num_rows() > 0) {
+            return $q->result();
+        } else {
+            return array(); // Return an empty array if no rows are found
+        }
+    }
+    
 
     public function products_count($category_id = NULL) {
         if ($category_id) {
