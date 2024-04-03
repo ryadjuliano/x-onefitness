@@ -125,6 +125,22 @@ class Welcome_model extends CI_Model
 
     }
 
+    public function getMemberExpired() {
+        $today = date('Y-m-d'); // Get today's date in YYYY-MM-DD format
+        $this->db->where('end_date <', $today); // Select records where end_date is before today
+        $count = $this->db->count_all_results('customers'); // Count the results
+        return $count; // Return the count
+
+    }
+
+    public function getMemberExpiredActive() {
+        $today = date('Y-m-d'); // Get today's date in YYYY-MM-DD format
+        $this->db->where('end_date >', $today); // Select records where end_date is before today
+        $count = $this->db->count_all_results('customers'); // Count the results
+        return $count; // Return the count
+
+    }
+
 
 
 }
