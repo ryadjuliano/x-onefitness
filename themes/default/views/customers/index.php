@@ -42,7 +42,18 @@
                 if (full.status == 1 ) {
                     return '<div class="text-center"><span class="label label-success">Active</span></div>';
                 } else {
-                    return '<div class="text-center"><span class="label label-danger">Non Active</span></div>';
+                    return '<div class="text-center"><span class="label label-danger">Banned</span></div>';
+                }
+            }
+            },
+            {
+            "data": "status",
+            "render": function(data, type, full, meta) {
+                
+                if (full.active_status === 'active' ) {
+                    return '<div class="text-center"><span class="label label-info">Active</span></div>';
+                } else {
+                    return '<div class="text-center"><span class="label label-warning">Expired</span></div>';
                 }
             }
             },
@@ -144,10 +155,11 @@
                                     <th><?= lang("phone"); ?></th>
                                     <th><?= lang("email_address"); ?></th>
                                     <th>Members Code</th>
-                                    <!-- <th>Has Photo</th> -->
-                                    <th>Active / Non Active</th>
+                                   
+                                    <th>Banned</th>
+                                    <th>Expired Members</th>
                                     <th>Start Date</th>
-                                    <th>Expired Date</th>
+                                    <th>Expired Members</th>
                                     <th style="width:65px;"><?= lang("actions"); ?></th>
                                 </tr>
                             </thead>

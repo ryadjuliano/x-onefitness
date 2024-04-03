@@ -73,12 +73,16 @@ class Customers extends MY_Controller
         // } else {
         //     $this->datatables->select($this->db->dbprefix('products').".id as pid, ".$this->db->dbprefix('products').".lifetime as lifetime, ".$this->db->dbprefix('products').".image as image, ".$this->db->dbprefix('products').".code as code, ".$this->db->dbprefix('products').".name as pname, type, ".$this->db->dbprefix('categories').".name as cname, psq.quantity, tax, tax_method, (CASE WHEN psq.price > 0 THEN psq.price ELSE {$this->db->dbprefix('products')}.price END) as price, barcode_symbology", FALSE);
         // }
+        // $this->datatables
+        // ->select("id, name,status, phone, email, member_code,image, start_date, end_date")
+        // ->from("customers")
         $this->datatables
-        ->select("id, name,status, phone, email, member_code,image, start_date, end_date")
+        ->select("id, name, status, phone, email, member_code, image, start_date, end_date, 
+                CASE 
+                    WHEN end_date < CURDATE() THEN 'non_active' 
+                    ELSE 'active' 
+                END AS active_status")
         ->from("customers")
-        // ->add_column("Photo", "<div class='text-center'><div class='btn-group'><a href='"  . base_url() . 'uploads/members/$1' . "' class='tip btn btn-success btn-xs' target='_blank'><i class='fa fa-check'></i></a> </div></div>", "image")
-        // exclamation
-        // ->add_column("Active", "<div class='text-center'><div class='btn-group'> <a href='" . site_url('customers/banned/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-exclamation'></i></a></div></div>", "id")
         ->add_column("Actions", "<div class='text-center'><div class='btn-group'> 
         <a href='" . site_url('customers/edit/$1') . "'  class='tip btn btn-default btn-xs' title='Edit Member'><i class='fa fa-edit'></i></a>   
 
