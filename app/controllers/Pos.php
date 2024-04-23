@@ -778,22 +778,45 @@ class Pos extends MY_Controller {
 
 
             $id =   $this->data['customer']->id;
-            $date = date("Y-m-d");
-            $mod_date = strtotime($date . '+ '.$lifetime);
+            $dateToday = date("Y-m-d");
+            
+            $tanggal_jatuh_tempo_awal = $cust->end_date;
+
+            // // Tanggal hari ini
+            // $tanggal_hari_ini = "2024-04-23";
+
+            // // Jumlah bulan perpanjangan
+            $jumlah_bulan_perpanjangan = $lifetime;
+
+            // // Cek apakah tanggal hari ini sudah melewati tanggal jatuh tempo
+            
+            // echo "Tanggal jatuh tempo setelah perpanjangan: " . $tanggal_jatuh_tempo_perpanjang;
     
             $start_date = "";
             $end_date = "";
             // $tanggalJatuhTempo->modify($lifetime);
             if($cust->end_date === NULL || $cust->end_date === "" ) {
                 $start_date = $this->data['customer']->start_date;
+                $mod_date = strtotime($start_date . '+ '.$lifetime);
                 $end_date = date("Y-m-d",$mod_date);
                 // echo "1";
             } else {
-                // $cust = $this->data['customer'];
-                $start_date = $cust->end_date;
-                $mod_date = strtotime($start_date . '+ '.$lifetime);
-                $end_date = date("Y-m-d",$mod_date);
-                // echo "2";
+                // // $cust = $this->data['customer'];
+                // $start_date = date("Y-m-d");
+                // $mod_date = strtotime($start_date . '+ '.$lifetime);
+                // $end_date = date("Y-m-d",$mod_date);
+                // // echo "2";
+
+                if (strtotime($dateToday) > strtotime($cust->end_date)) {
+                    // Jika sudah melewati, perpanjang dari tanggal hari ini
+                    $start_date = date("Y-m-d");
+                    $end_date = date("Y-m-d", strtotime($dateToday . " +$jumlah_bulan_perpanjangan"));
+                } else {
+                    // Jika belum, perpanjang dari tanggal jatuh tempo awal
+                    $start_date = $tanggal_jatuh_tempo_awal;
+                    $end_date = date("Y-m-d", strtotime($tanggal_jatuh_tempo_awal . " +$jumlah_bulan_perpanjangan"));
+                }
+    
             }
     
             $dataStatus = array(
@@ -801,6 +824,8 @@ class Pos extends MY_Controller {
                 'start_date' => $start_date,
                 'end_date' => $end_date
                 );
+
+            
             // echo "<pre />";
             // print_r($dataStatus);
             // exit();
