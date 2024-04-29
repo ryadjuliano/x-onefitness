@@ -86,7 +86,7 @@ class Customers extends MY_Controller
         ->add_column("Actions", "<div class='text-center'><div class='btn-group'> 
         <a href='" . site_url('customers/edit/$1') . "'  class='tip btn btn-default btn-xs' title='Edit Member'><i class='fa fa-edit'></i></a>   
 
-        <a href='" . site_url('customers/transaction/$1') . "'  class='tip btn btn-info btn-xs' title='Edit Trx'><i class='fa fa-edit'></i></a>   
+      
         <a href='" . site_url('customers/delete/$1') . "' onClick=\"return confirm('". $this->lang->line('alert_x_customer') ."')\" class='tip btn btn-danger btn-xs' title='".$this->lang->line("delete_customer")."'><i class='fa fa-trash-o'></i></a>
         <a href='" . site_url('customers/banned/$1') . "' onClick=\"return confirm('Apakah Kamu Yakin ingin Meng Nonaktifkan  ?')\" class='tip btn btn-warning btn-xs' title='Banned Member'><i class='fa fa-ban'></i></a>
         <a href='" . site_url('customers/active/$1') . "' onClick=\"return confirm('Apakah Kamu Yakin ingin Mengaktifkan Kembali ?')\" class='tip btn btn-success btn-xs' title='Active Member'><i class='fa fa-check'></i></a>   
@@ -94,6 +94,7 @@ class Customers extends MY_Controller
         </div></div>", "id")
         ->unset_column('id');
         // src="' . base_url() . 'uploads/avatars/' . $user->gender . '.png"
+        // <a href='" . site_url('customers/transaction/$1') . "'  class='tip btn btn-info btn-xs' title='Edit Trx'><i class='fa fa-edit'></i></a>   
         echo $this->datatables->generate();
     }
 
