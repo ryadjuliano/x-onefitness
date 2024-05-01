@@ -731,6 +731,7 @@ class Pos extends MY_Controller {
         $this->data['printer'] = $this->site->getPrinterByID($this->Settings->printer);
         $this->data['store'] = $this->site->getStoreByID($inv->store_id);
         $this->data['page_title'] = lang("invoice");
+
         $rows = $this->pos_model->getAllSaleItems($sale_id);
         $lifetime = 0 ;
         foreach ($rows as $row) {
@@ -749,34 +750,7 @@ class Pos extends MY_Controller {
 
             $cust = $this->data['customer'];
 
-           // Misalkan ini adalah tanggal jatuh tempo saat ini
-        //    $tanggalJatuhTempo = new DateTime($cust->end_date);
-
-        //    // Ini adalah tanggal saat ini
-        //    $tanggalSekarang = new DateTime(); // atau tanggal lain sesuai kebutuhan
-
-        //    // Hitung selisih hari jika hari ini kurang dari tanggal jatuh tempo
-        //    if ($tanggalSekarang < $tanggalJatuhTempo) {
-        //        $selisih = $tanggalSekarang->diff($tanggalJatuhTempo);
-        //        $sisaHari = $selisih->days;
-        //    } else {
-        //        $sisaHari = 0; // Jika sudah melewati jatuh tempo, sisa hari dianggap 0
-        //    }
-
-
-        //    // echo $lifetime;
-        //    // Tambahkan 1 bulan ke tanggal jatuh tempo
-        //    $tanggalJatuhTempo->modify($lifetime);
-
-        //    // Jika ada sisa hari sebelum jatuh tempo, tambahkan ke tanggal yang sudah diperpanjang
-        //    if ($sisaHari > 0) {
-        //        $tanggalJatuhTempo->modify("+$sisaHari days");
-        //    }
-
-        //    // Format untuk menampilkan tanggal
-        //    echo "Tanggal jatuh tempo baru adalah: " . $tanggalJatuhTempo->format('Y-m-d');
-
-
+       
             $id =   $this->data['customer']->id;
             $dateToday = date("Y-m-d");
             
@@ -837,6 +811,39 @@ class Pos extends MY_Controller {
 
         }
 
+      
+        $this->load->view($this->theme.'pos/'.($this->Settings->print_img ? 'eview' : 'view'), $this->data);
+
+    }
+
+    // 
+
+    function view_modal($sale_id = NULL, $noprint = NULL) {
+        if($this->input->get('id')){ $sale_id = $this->input->get('id'); }
+        $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+        $this->data['message'] = $this->session->flashdata('message');
+        $inv = $this->pos_model->getSaleByID($sale_id);
+        if ( ! $this->session->userdata('store_id')) {
+            $this->session->set_flashdata('warning', lang("please_select_store"));
+            redirect('stores');
+        } elseif ($this->session->userdata('store_id') != $inv->store_id) {
+            $this->session->set_flashdata('error', lang('access_denied'));
+            redirect('welcome');
+        }
+        $this->tec->view_rights($inv->created_by);
+        $this->load->helper('text');
+        $this->data['rows'] = $this->pos_model->getAllSaleItems($sale_id);
+        $this->data['customer'] = $this->pos_model->getCustomerByID($inv->customer_id);
+        $this->data['store'] = $this->site->getStoreByID($inv->store_id);
+        $this->data['inv'] = $inv;
+        $this->data['sid'] = $sale_id;
+        $this->data['noprint'] = $noprint;
+        $this->data['modal'] = $noprint ? true : false;
+        $this->data['payments'] = $this->pos_model->getAllSalePayments($sale_id);
+        $this->data['created_by'] = $this->site->getUser($inv->created_by);
+        $this->data['printer'] = $this->site->getPrinterByID($this->Settings->printer);
+        $this->data['store'] = $this->site->getStoreByID($inv->store_id);
+        $this->data['page_title'] = lang("invoice");
       
         $this->load->view($this->theme.'pos/'.($this->Settings->print_img ? 'eview' : 'view'), $this->data);
 
