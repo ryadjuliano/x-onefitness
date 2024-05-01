@@ -58,7 +58,7 @@ class Reports_model extends CI_Model
         ->join('sales', 'sales.id=sale_items.sale_id', 'left')
         ->order_by("sum(".$this->db->dbprefix('sale_items').".quantity)", 'desc')
         ->group_by('sale_items.product_id')
-        ->limit(10)
+        // ->limit(10)
         ->like($this->db->dbprefix('sales').'.date', $m, 'both');
         if ($this->session->userdata('store_id')) {
             $this->db->where('store_id', $this->session->userdata('store_id'));
