@@ -823,6 +823,8 @@ class Pos extends MY_Controller {
         $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
         $this->data['message'] = $this->session->flashdata('message');
         $inv = $this->pos_model->getSaleByID($sale_id);
+
+     
         if ( ! $this->session->userdata('store_id')) {
             $this->session->set_flashdata('warning', lang("please_select_store"));
             redirect('stores');
@@ -830,11 +832,15 @@ class Pos extends MY_Controller {
             $this->session->set_flashdata('error', lang('access_denied'));
             redirect('welcome');
         }
-        $this->tec->view_rights($inv->created_by);
-        $this->load->helper('text');
+      
+        // $this->tec->view_rights($inv->created_by);
+        // $this->load->helper('text');
+        // print_r($inv->created_by );
+        // exit();
         $this->data['rows'] = $this->pos_model->getAllSaleItems($sale_id);
         $this->data['customer'] = $this->pos_model->getCustomerByID($inv->customer_id);
         $this->data['store'] = $this->site->getStoreByID($inv->store_id);
+       
         $this->data['inv'] = $inv;
         $this->data['sid'] = $sale_id;
         $this->data['noprint'] = $noprint;
@@ -845,6 +851,8 @@ class Pos extends MY_Controller {
         $this->data['store'] = $this->site->getStoreByID($inv->store_id);
         $this->data['page_title'] = lang("invoice");
       
+        // print_r($this->data);
+        // exit;
         $this->load->view($this->theme.'pos/'.($this->Settings->print_img ? 'eview' : 'view'), $this->data);
 
     }
